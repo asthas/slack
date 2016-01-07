@@ -17,6 +17,17 @@
 			</div>
 		</div>
 
+		<div class="list-head">
+			Direct Messages
+		</div>
+		<div class="channel" ng-repeat="user in channelsCtrl.users">
+			
+			<a ng-if="user.$id !== channelsCtrl.profile.$id" ui-sref="channels.private({uid: user.$id})" ui-sref-active="selected">
+				{{user.displayName}}
+			</a>
+			
+		</div>
+
 		<div class="my-info">
 			<img class="user-pic" ng-src="{{channelsCtrl.getGravatar(channelsCtrl.profile.$id)}}"/>
 			<div class="user-info">

@@ -95,12 +95,10 @@ angular
               return Auth.$requireAuth().then(function(auth){
                 console.log("SEETHIS:", auth);
                 return Users.getProfile(auth.uid).$loaded().then(function(profile){
-                  console.log("WOAH");
+                  
                   if(profile.displayName){
-                    console.log('If worked', profile);
                     return profile;
                   } else {
-                    console.log('Else :)))', profile);
                     $state.go('profile');
                   }
                 });
@@ -126,6 +124,21 @@ angular
             }, 
             channelName: function($stateParams, channels) {
               return '#' +channels.$getRecord($stateParams.channelId).name;
+            }
+          }
+        })
+        .state('channels.direct', {
+          url: '/{uid}/messages/direct',
+          templateUrl: 'channels/messages.html',
+          controller: 'MessagesCtrl as messagesCtrl',
+          resolve: {
+            messages: function($stateParams, Messages, profile){
+              return Messages.forUsers($stateParams.uid, profile.$id).loaded();
+            },
+            channelName: function($stateParams, Users){
+              return Users.all.$loaded().then(function(){
+                return '@'+Users.getDisplayName($stateParams.uid);
+              });
             }
           }
         })
