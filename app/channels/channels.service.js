@@ -6,3 +6,4 @@ angular.module('angularfireSlackApp')
 
 		return channels;
 	});
+
