@@ -133,10 +133,12 @@ angular
           controller: 'MessagesCtrl as messagesCtrl',
           resolve: {
             messages: function($stateParams, Messages, profile){
-              return Messages.forUsers($stateParams.uid, profile.$id).loaded();
+              console.log("profile loaded", profile);
+              return Messages.forUsers($stateParams.uid, profile.$id).$loaded();
             },
             channelName: function($stateParams, Users){
               return Users.all.$loaded().then(function(){
+                console.log("channelName resolved");
                 return '@'+Users.getDisplayName($stateParams.uid);
               });
             }
