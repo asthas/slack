@@ -20,7 +20,7 @@ angular.module('angularfireSlackApp')
 			connected.$watch(function() {
 				if(connected.$value === true){
 					online.$add(true).then(function(connectedRef){
-						connectedRef.onDisconnect.remove();
+						connectedRef.onDisconnect().remove();
 					});
 				}
 			});
